@@ -4,30 +4,36 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using HomeShop.Core.Models;
+using HomeShop.Core.ViewModels;
 using HomeShop.DataAccess.InMemory;
 
 namespace HomeShop.WebUI.Controllers
 {
     public class ProductManagerController : Controller
     {
-        private readonly ProductRepository _context;
+        ProductRepository _context;
+        ProductCategoryRepository _productCategories;
 
         public ProductManagerController()
         {
             _context = new ProductRepository();
+            _productCategories = new ProductCategoryRepository();
         }
 
         // GET: ProductManager
         public ActionResult Index()
         {
-            List<Product> products = _context.Collection().ToList();
+            List<Product> products = _context.Collection().OrderBy(c => c.Category).ToList();
             return View(products);
         }
 
         public ActionResult Create()
         {
-            Product product = new Product();
-            return View(product);
+            ProductManagerViewModel viewModel = new ProductManagerViewModel();
+
+            viewModel.Product = new Product();
+            viewModel.ProcductCategories = _productCategories.Collection().OrderBy(c => c.Category);
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -55,7 +61,10 @@ namespace HomeShop.WebUI.Controllers
             }
             else
             {
-                return View(product);
+                ProductManagerViewModel viewModel = new ProductManagerViewModel();
+                viewModel.Product = product;
+                viewModel.ProcductCategories = _productCategories.Collection();
+                return View(viewModel);
             }
         }
 
