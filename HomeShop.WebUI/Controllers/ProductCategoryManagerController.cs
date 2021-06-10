@@ -10,11 +10,11 @@ namespace HomeShop.WebUI.Controllers
 {
     public class ProductCategoryManagerController : Controller
     {
-        private readonly ProductCategoryRepository _context;
+        private readonly InMemoryRepository<ProductCategory> _context;
 
         public ProductCategoryManagerController()
         {
-            _context = new ProductCategoryRepository();
+            _context = new InMemoryRepository<ProductCategory>();
         }
 
         // GET: ProductManager
