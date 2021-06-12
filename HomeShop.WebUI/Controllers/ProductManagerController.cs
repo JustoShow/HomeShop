@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using HomeShop.Core.Contracts;
 using HomeShop.Core.Models;
 using HomeShop.Core.ViewModels;
 using HomeShop.DataAccess.InMemory;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace HomeShop.WebUI.Controllers
 {
     public class ProductManagerController : Controller
     {
-        InMemoryRepository<Product> _context;
-        InMemoryRepository<ProductCategory> _productCategories;
+        private readonly IRepository<Product> _context;
+        private readonly IRepository<ProductCategory> _productCategories;
 
-        public ProductManagerController()
+        public ProductManagerController(IRepository<Product> context, IRepository<ProductCategory> productCategories)
         {
-            _context = new InMemoryRepository<Product>();
-            _productCategories = new InMemoryRepository<ProductCategory>();
+            _context = context;
+            _productCategories = productCategories;
         }
 
         // GET: ProductManager
