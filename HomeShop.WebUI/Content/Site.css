@@ -22,3 +22,13 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.product-listing {
+    height: 450px;
+    padding: 10px;
+    border: solid thin whitesmoke;
+}
+
+.product-listing + img {
+    height: 250px;
+}
