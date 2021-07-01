@@ -1,5 +1,6 @@
 ﻿using HomeShop.Core.Contracts;
 using HomeShop.Core.Models;
+using HomeShop.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,10 +20,25 @@ namespace HomeShop.WebUI.Controllers
             _productCategories = productCategories;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string Category = null)
         {
-            List<Product> products = _context.Collection().ToList();
-            return View(products);
+            List<Product> products;
+            List<ProductCategory> categories = _productCategories.Collection().ToList();
+
+            if(Category == null)
+            {
+                products = _context.Collection().ToList();
+            }
+            else
+            {
+                products = _context.Collection().Where(p => p.Category == Category).ToList();
+            }
+
+            ProductListViewModel model = new ProductListViewModel();
+            model.Products = products;
+            model.ProcductCategories = categories;
+
+            return View(model);
         }
 
         public ActionResult Details(string id)
