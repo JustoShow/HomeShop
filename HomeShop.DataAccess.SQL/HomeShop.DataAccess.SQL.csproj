@@ -69,18 +69,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HomeShop.Core\HomeShop.Core.csproj">
-      <Project>{3d4f03f1-e459-478c-8b6a-22c8a3f4e694}</Project>
-      <Name>HomeShop.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Migrations\202106122121158_Initial.resx">
       <DependentUpon>202106122121158_Initial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202107011555578_AddBasket.resx">
       <DependentUpon>202107011555578_AddBasket.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HomeShop.Core\HomeShop.Core.csproj">
+      <Project>{3d4f03f1-e459-478c-8b6a-22c8a3f4e694}</Project>
+      <Name>HomeShop.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

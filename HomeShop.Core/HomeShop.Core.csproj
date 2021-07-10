@@ -43,10 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-=======
     <Compile Include="Contracts\IBasketService.cs" />
->>>>>>> 13.BasketService
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="Models\Basket.cs" />
