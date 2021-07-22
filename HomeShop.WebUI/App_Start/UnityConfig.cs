@@ -2,6 +2,7 @@ using HomeShop.Core.Contracts;
 using HomeShop.Core.Models;
 using HomeShop.DataAccess.InMemory;
 using HomeShop.DataAccess.SQL;
+using HomeShop.Services;
 using System;
 
 using Unity;
@@ -48,6 +49,9 @@ namespace HomeShop.WebUI
             // container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType<IRepository<Product>, SQLRepository<Product>>();
             container.RegisterType<IRepository<ProductCategory>, SQLRepository<ProductCategory>>();
+            container.RegisterType<IRepository<Basket>, SQLRepository<Basket>>();
+            container.RegisterType<IRepository<BasketItem>, SQLRepository<BasketItem>>();
+            container.RegisterType<IBasketService, BasketService>();
         }
     }
 }
