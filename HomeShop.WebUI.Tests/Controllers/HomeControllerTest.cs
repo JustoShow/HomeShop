@@ -1,5 +1,9 @@
-﻿using HomeShop.WebUI;
+﻿using HomeShop.Core.Contracts;
+using HomeShop.Core.Models;
+using HomeShop.Core.ViewModels;
+using HomeShop.WebUI;
 using HomeShop.WebUI.Controllers;
+using HomeShop.WebUI.Tests.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -12,43 +16,22 @@ namespace HomeShop.WebUI.Tests.Controllers
     [TestClass]
     public class HomeControllerTest
     {
-        //[TestMethod]
-        //public void Index()
-        //{
-        //    // Arrange
-        //    HomeController controller = new HomeController();
+        [TestMethod]
+        public void IndexPageDoesReturnProducts()
+        {
+            IRepository<Product> productContext = new Mocks.MockContext<Product>();
+            IRepository<ProductCategory> productCategoryContext = new Mocks.MockContext<ProductCategory>();
 
-        //    // Act
-        //    ViewResult result = controller.Index() as ViewResult;
+            var httpContext = new MockHttpContext();
 
-        //    // Assert
-        //    Assert.IsNotNull(result);
-        //}
+            productContext.Insert(new Product());
 
-        //[TestMethod]
-        //public void About()
-        //{
-        //    // Arrange
-        //    HomeController controller = new HomeController();
+            HomeController controller = new HomeController(productContext, productCategoryContext);
 
-        //    // Act
-        //    ViewResult result = controller.About() as ViewResult;
+            var result = controller.Index() as ViewResult;
+            var viewModel = (ProductListViewModel)result.ViewData.Model;
 
-        //    // Assert
-        //    Assert.AreEqual("Your application description page.", result.ViewBag.Message);
-        //}
-
-        //[TestMethod]
-        //public void Contact()
-        //{
-        //    // Arrange
-        //    HomeController controller = new HomeController();
-
-        //    // Act
-        //    ViewResult result = controller.Contact() as ViewResult;
-
-        //    // Assert
-        //    Assert.IsNotNull(result);
-        //}
+            Assert.AreEqual(1, viewModel.Products.Count());
+        }
     }
 }
